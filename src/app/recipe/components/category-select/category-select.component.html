@@ -1,0 +1,9 @@
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+<div class="category-container">
+    <div class="category-item" *ngFor="let category of categories">
+        <div class="overlay">
+            <span>{{ category.name }}</span>
+        </div>
+        <img [src]="category.imgURL" alt="category.name">
+    </div>
+</div>
