@@ -1,0 +1,41 @@
+.recipe-container { 
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.overlay {
+    background-image: linear-gradient(to right bottom, rgba(104, 58, 183, 0.8), rgba(20, 4, 48, 0.8));
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.5rem;
+    z-index: 2;
+    color: white;
+
+    &:hover + img {
+        filter: blur(5px);
+        transform: scale(1.2);
+    }
+}
+
+img {
+    max-width: 100%;
+    display: inline-block;
+    transition: all .5s;
+}
+
+.recipe-title {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    margin-bottom: .8rem;
+    line-height: 1.7rem;
+}
+
+
+
