@@ -23,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeListComponent } from './recipe/components/recipe-list/recipe-list.component';
 import { RecipeItemComponent } from './recipe/components/recipe-item/recipe-item.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { SearchResultsComponent } from './recipe/components/search-results/search-results.component';
+import { RecipeDetailsComponent } from './recipe/components/recipe-details/recipe-details.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { RecipeByCategoryComponent } from './recipe/components/recipe-by-category/recipe-by-category.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,10 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     NotFoundComponent,
     RecipeListComponent,
     RecipeItemComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    SearchResultsComponent,
+    RecipeDetailsComponent,
+    RecipeByCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,8 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     MatFormFieldModule,
     MatInputModule,
     AppRoutingModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

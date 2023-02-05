@@ -1,0 +1,50 @@
+<ng-container *ngIf="recipe$ | async as recipe; else loading">
+    <mat-card>
+        <div class="close-action">
+            <button mat-icon-button (click)="onBack()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="recipe-details">
+            <div class="recipe-image">
+                <div class="image-container">
+                    <img [src]="recipe.imgURL" [alt]="recipe.name">
+                    <div class="overlay">
+                        <button mat-fab color="warn">
+                            <mat-icon>favorite_outline</mat-icon>
+                        </button>
+                        <h1>{{ recipe.name }}</h1>
+                        <mat-chip-listbox>
+                            <mat-chip *ngFor="let tag of recipe.tags" color="primary" highlighted>
+                                {{ tag }}
+                            </mat-chip>
+                            <mat-chip color="accent" highlighted>
+                                {{ recipe.area }}
+                            </mat-chip>
+                        </mat-chip-listbox>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-instructions">
+                <h2>Ingredients</h2>
+                <ul>
+                    <li *ngFor="let ingredient of recipe.ingredients">
+                        {{ ingredient.name | titlecase }} ({{ ingredient.measure }})
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="recipe-method">
+            <h2>Method</h2>
+            <p *ngFor="let step of recipe.method">
+                {{ step }}
+            </p>
+            <p *ngIf="recipe.source">
+                <a [href]="recipe.source" target="_blank">Read More</a>
+            </p>
+        </div>
+    </mat-card>
+</ng-container>
+<ng-template #loading>
+    <app-loading-spinner></app-loading-spinner>
+</ng-template>
