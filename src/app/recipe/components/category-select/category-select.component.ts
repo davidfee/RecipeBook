@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../models/category.model';
 import { RecipeService } from '../../services/recipe.service';
 
@@ -9,7 +10,7 @@ import { RecipeService } from '../../services/recipe.service';
 })
 export class CategorySelectComponent implements OnInit {
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private router: Router, private route: ActivatedRoute) { }
 
   categories: Category[] = [];
   loading = true;
@@ -19,6 +20,10 @@ export class CategorySelectComponent implements OnInit {
       this.categories = response;
       this.loading = false;
     });
+  }
+
+  onNavigateCategory(category: string) {
+    this.router.navigate([category], {relativeTo: this.route});
   }
 
 }
