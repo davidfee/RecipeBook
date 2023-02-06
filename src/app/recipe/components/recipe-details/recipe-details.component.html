@@ -10,7 +10,7 @@
                 <div class="image-container">
                     <img [src]="recipe.imgURL" [alt]="recipe.name">
                     <div class="overlay">
-                        <button mat-fab color="warn">
+                        <button mat-fab color="warn" *ngIf="authenticated">
                             <mat-icon>favorite_outline</mat-icon>
                         </button>
                         <h1>{{ recipe.name }}</h1>

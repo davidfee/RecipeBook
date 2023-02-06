@@ -1,5 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { LoginComponent } from "./auth/components/login/login.component";
+import { RegisterComponent } from "./auth/components/register/register.component";
+import { AuthGuardService } from "./auth/services/auth-guard.service";
 import { FavouritesComponent } from "./favourites/components/favourites/favourites.component";
 import { CategorySelectComponent } from "./recipe/components/category-select/category-select.component";
 import { RecipeByCategoryComponent } from "./recipe/components/recipe-by-category/recipe-by-category.component";
@@ -17,7 +20,9 @@ const routes: Routes = [
         {path: ':category', component: RecipeByCategoryComponent},
         {path: ':category/:id', component: RecipeDetailsComponent}
     ]},
-    {path: 'favourites', component: FavouritesComponent},
+    {path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuardService]},
+    {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
     {path: '**', component: NotFoundComponent}
 ];
 
