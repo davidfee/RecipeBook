@@ -27,6 +27,10 @@ import { SearchResultsComponent } from './recipe/components/search-results/searc
 import { RecipeDetailsComponent } from './recipe/components/recipe-details/recipe-details.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { RecipeByCategoryComponent } from './recipe/components/recipe-by-category/recipe-by-category.component';
+import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { firebaseConfig } from './auth/models/firebase.model';
 
 @NgModule({
   declarations: [
@@ -41,10 +45,13 @@ import { RecipeByCategoryComponent } from './recipe/components/recipe-by-categor
     LoadingSpinnerComponent,
     SearchResultsComponent,
     RecipeDetailsComponent,
-    RecipeByCategoryComponent
+    RecipeByCategoryComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
