@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -27,6 +27,25 @@ export class RegisterComponent {
     this.loading = false;
   }
 
+  passwordStrengthValidator(): ValidatorFn {
+    return (control: AbstractControl) : ValidationErrors | null => {
+
+      const value = control.value;
+
+      if(!value) {
+        return null;
+      }
+
+      const upperCaseIncluded = /[A-Z]+/.test(value);
+      const lowerCaseIncluded = /[a-z]+/.test(value);
+      const numberIncluded = /[0-9]+/.test(value);
+      
+      const passwordStrong = upperCaseIncluded && lowerCaseIncluded && numberIncluded;
+
+      return !passwordStrong ? {weakPassword:true}: null
+    }
+  }
+
   getEmailError(): string {
     if(this.registerForm.get('email')?.errors?.['email']) {
       return "Invalid email address";
@@ -43,6 +62,9 @@ export class RegisterComponent {
     }
     if(this.registerForm.get('password')?.errors?.['required']) {
       return "Please provide a password";
+    }
+    if(this.registerForm.get('password')?.errors?.['weakPassword']) {
+      return "Password is too weak";
     }
     return "An unknown error occured";
   }

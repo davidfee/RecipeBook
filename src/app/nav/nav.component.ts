@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/services/auth.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { AuthService } from '../auth/services/auth.service';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,23 +17,13 @@ export class NavComponent implements OnInit, OnDestroy {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AngularFireAuth, private authService: AuthService) {}
-
-  authenticated = false;
-  authSubscription = new Subscription;
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.auth.authState.subscribe(user => {
-      this.authenticated = user ? true : false;
-    });
   }
 
   onLogout() {
     this.authService.logout();
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
   }
 
 }

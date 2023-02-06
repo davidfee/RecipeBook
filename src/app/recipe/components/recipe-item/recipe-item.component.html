@@ -1,6 +1,6 @@
 <div class="recipe-container" (click)="onViewRecipe()">
     <div class="overlay">
-        <span class="recipe-title">{{ recipe.name }}</span>
+        <span class="recipe-title">{{ recipe.name | shorten }}</span>
     </div>
     <img [src]="recipe.imgURL" [alt]="recipe.name">
 </div>
