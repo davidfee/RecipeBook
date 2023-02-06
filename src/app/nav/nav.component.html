@@ -9,9 +9,9 @@
     <mat-nav-list>
       <a class="nav-link" mat-list-item routerLink=""><mat-icon>search</mat-icon> Search</a>
       <a class="nav-link" mat-list-item routerLink="category"><mat-icon>dns</mat-icon> Categories</a>
-      <a class="nav-link" mat-list-item routerLink="favourites" *ngIf="authenticated"><mat-icon>favorite</mat-icon> Favourites</a>
-      <a class="nav-link" mat-list-item routerLink="login" *ngIf="!authenticated"><mat-icon>login</mat-icon> Login</a>
-      <a class="nav-link" mat-list-item *ngIf="authenticated" (click)="onLogout()"><mat-icon>logout</mat-icon> Logout</a>
+      <a class="nav-link" mat-list-item routerLink="favourites" *appHideNonAuth="true"><mat-icon>favorite</mat-icon>Favourites</a>
+      <a class="nav-link" mat-list-item routerLink="login" *appHideNonAuth="false"><mat-icon>login</mat-icon>Login</a>
+      <a class="nav-link" mat-list-item (click)="onLogout()" *appHideNonAuth="true"><mat-icon>logout</mat-icon>Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

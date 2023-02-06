@@ -31,6 +31,8 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { firebaseConfig } from './auth/models/firebase.model';
+import { ShortenPipe } from './recipe/pipes/shorten.pipe';
+import { HideNonAuthDirective } from './shared/directives/hide-non-auth.directive';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { firebaseConfig } from './auth/models/firebase.model';
     RecipeDetailsComponent,
     RecipeByCategoryComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ShortenPipe,
+    HideNonAuthDirective
   ],
   imports: [
     BrowserModule,
