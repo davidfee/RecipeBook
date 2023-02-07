@@ -36,8 +36,28 @@
   }
 }
 
+.dark-logo {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+  transition: .5s ease;
+}
+
 .app-title {
   text-transform: uppercase;
   font-weight: 300;
   letter-spacing: 5px;
+}
+
+.theme-container {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.top-bar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  .title {
+    margin-right: auto;
+  }
 }

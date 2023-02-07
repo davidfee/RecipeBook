@@ -33,6 +33,9 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { firebaseConfig } from './auth/models/firebase.model';
 import { ShortenPipe } from './recipe/pipes/shorten.pipe';
 import { HideNonAuthDirective } from './shared/directives/hide-non-auth.directive';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ErrorBoxComponent } from './shared/components/error-box/error-box.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import { HideNonAuthDirective } from './shared/directives/hide-non-auth.directiv
     LoginComponent,
     RegisterComponent,
     ShortenPipe,
-    HideNonAuthDirective
+    HideNonAuthDirective,
+    ErrorBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,9 @@ import { HideNonAuthDirective } from './shared/directives/hide-non-auth.directiv
     MatInputModule,
     AppRoutingModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
