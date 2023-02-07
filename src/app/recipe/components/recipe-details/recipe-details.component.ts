@@ -5,6 +5,8 @@ import { Observable, Subscription } from 'rxjs';
 import { Recipe } from '../../models/recipe.model';
 import { RecipeService } from '../../services/recipe.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { FavouritesService } from 'src/app/favourites/services/favourites.service';
+import { RecipePreview } from '../../models/recipe-preview.model';
 
 @Component({
   selector: 'app-recipe-details',
@@ -17,12 +19,15 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private location: Location,
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private favouriteService: FavouritesService
   ) { }
 
   recipe$!: Observable<Recipe>;
   authenticated = false;
   authSub = new Subscription;
+  isFavourite = false;
+  favouriteSub = new Subscription;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -36,6 +41,19 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
 
   fetchRecipe(id: string) {
     this.recipe$ = this.recipeService.getRecipeById(id);
+    this.favouriteSub = this.favouriteService.favourites$.subscribe(favourites => {
+      this.isFavourite = favourites.map(f => f.id).indexOf(id) !== -1;
+    });
+  }
+
+  onAddFavourite(recipe: Recipe) {
+    const limitedRecipe = new RecipePreview(recipe.id, recipe.name, recipe.imgURL);
+    this.favouriteService.storeFavourites(limitedRecipe);
+  }
+
+  onRemoveFavourite(recipe: Recipe) {
+    const limitedRecipe = new RecipePreview(recipe.id, recipe.name, recipe.imgURL);
+    this.favouriteService.removeFavourite(limitedRecipe);
   }
 
   onBack() {
@@ -44,6 +62,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+    this.favouriteSub.unsubscribe();
   }
 
 }
