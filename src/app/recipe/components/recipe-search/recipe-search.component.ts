@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { concatMap, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-search',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RecipeSearchComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   searchForm: FormGroup = new FormGroup({
     title: new FormControl("", Validators.required)

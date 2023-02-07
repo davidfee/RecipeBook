@@ -1,4 +1,4 @@
-<ng-container *ngIf="recipe$ | async as recipe; else loading">
+<ng-container *ngIf="recipeData$ | async as recipeData; else loading">
     <mat-card>
         <div class="close-action">
             <button mat-icon-button (click)="onBack()">
@@ -8,21 +8,21 @@
         <div class="recipe-details">
             <div class="recipe-image">
                 <div class="image-container">
-                    <img [src]="recipe.imgURL" [alt]="recipe.name">
+                    <img [src]="recipeData.recipe.imgURL" [alt]="recipeData.recipe.name">
                     <div class="overlay">
-                        <button mat-fab color="warn" *ngIf="authenticated && !isFavourite" (click)="onAddFavourite(recipe)">
+                        <button mat-fab color="warn" *ngIf="authenticated && !isFavourite" (click)="onAddFavourite(recipeData.recipe)">
                             <mat-icon>favorite_outline</mat-icon>
                         </button>
-                        <button mat-fab color="warn" *ngIf="authenticated && isFavourite" (click)="onRemoveFavourite(recipe)">
+                        <button mat-fab color="warn" *ngIf="authenticated && isFavourite" (click)="onRemoveFavourite(recipeData.recipe)">
                             <mat-icon>favorite</mat-icon>
                         </button>
-                        <h1>{{ recipe.name }}</h1>
+                        <h1>{{ recipeData.recipe.name }}</h1>
                         <mat-chip-listbox>
-                            <mat-chip *ngFor="let tag of recipe.tags" color="primary" highlighted>
+                            <mat-chip *ngFor="let tag of recipeData.recipe.tags" color="primary" highlighted>
                                 {{ tag }}
                             </mat-chip>
                             <mat-chip color="accent" highlighted>
-                                {{ recipe.area }}
+                                {{ recipeData.recipe.area }}
                             </mat-chip>
                         </mat-chip-listbox>
                     </div>
@@ -31,7 +31,7 @@
             <div class="recipe-instructions">
                 <h2>Ingredients</h2>
                 <ul>
-                    <li *ngFor="let ingredient of recipe.ingredients">
+                    <li *ngFor="let ingredient of recipeData.recipe.ingredients">
                         {{ ingredient.name | titlecase }} ({{ ingredient.measure }})
                     </li>
                 </ul>
@@ -39,12 +39,16 @@
         </div>
         <div class="recipe-method">
             <h2>Method</h2>
-            <p *ngFor="let step of recipe.method">
+            <p *ngFor="let step of recipeData.recipe.method">
                 {{ step }}
             </p>
-            <p *ngIf="recipe.source">
-                <a [href]="recipe.source" target="_blank">Read More</a>
+            <p *ngIf="recipeData.recipe.source">
+                <a [href]="recipeData.recipe.source" target="_blank">Read More</a>
             </p>
+        </div>
+        <div class="similar-recipes">
+            <h2>Similar Recipes</h2>
+            <app-recipe-list [recipes]="recipeData.similar"></app-recipe-list>
         </div>
     </mat-card>
 </ng-container>
