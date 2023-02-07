@@ -1,4 +1,4 @@
-<div class="recipe-container" (click)="onViewRecipe()">
+<div class="recipe-container" (click)="onViewRecipe()" [@fadeInOut]>
     <div class="overlay">
         <span class="recipe-title">{{ recipe.name | shorten }}</span>
     </div>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { Category } from '../models/category.model';
 import { RecipePreview } from '../models/recipe-preview.model';
 import { Ingredient, Recipe } from '../models/recipe.model';
@@ -145,6 +145,21 @@ export class RecipeService {
           ingredients,
           stepsArray
         );
+      }),
+      concatMap(recipe => {
+        return this.http.get<recipeAPIResponse>('https://www.themealdb.com/api/json/v1/1/filter.php', {
+          params: {
+            a: recipe.area
+          }
+        })
+        .pipe(
+          map(similarRecipes => {
+            let formedRecipes = similarRecipes.meals.filter(m => m.idMeal !== id).splice(0, 3).map(meal => {
+              return new RecipePreview(meal.idMeal, meal.strMeal, meal.strMealThumb);
+            })
+            return {recipe, similar: formedRecipes};
+          })
+        )
       })
     )
   }

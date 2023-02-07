@@ -23,7 +23,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     private favouriteService: FavouritesService
   ) { }
 
-  recipe$!: Observable<Recipe>;
+  recipeData$!: Observable<{recipe: Recipe, similar: RecipePreview[]}>;
   authenticated = false;
   authSub = new Subscription;
   isFavourite = false;
@@ -40,7 +40,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   }
 
   fetchRecipe(id: string) {
-    this.recipe$ = this.recipeService.getRecipeById(id);
+    this.recipeData$ = this.recipeService.getRecipeById(id);
     this.favouriteSub = this.favouriteService.favourites$.subscribe(favourites => {
       this.isFavourite = favourites.map(f => f.id).indexOf(id) !== -1;
     });
