@@ -21,6 +21,7 @@ const routes: Routes = [
         {path: ':category/:id', component: RecipeDetailsComponent}
     ]},
     {path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuardService]},
+    {path: 'favourites/:id', component: RecipeDetailsComponent, canActivate: [AuthGuardService]},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: '**', component: NotFoundComponent}
