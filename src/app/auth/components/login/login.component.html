@@ -11,7 +11,7 @@
                 <mat-error>Please enter your password</mat-error>
             </mat-form-field>
             <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
-            <p>No account? Register <a routerLink="../register">here</a></p>
+            <p>No account? Register <a routerLink="../auth/register">here</a></p>
             <app-loading-spinner *ngIf="loading"></app-loading-spinner>
             <mat-error *ngIf="error">{{ error }}</mat-error>
         </form>
